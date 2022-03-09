@@ -3,11 +3,12 @@ pragma solidity ^0.8.7;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "./EIP712MetaTransaction.sol";
 import "./IStellaRouter.sol";
 import "./IToken.sol";
 
-contract GasSwap is Ownable, EIP712MetaTransaction("GasSwap", "2") {
+contract GasSwap is Ownable, ReentrancyGuard, EIP712MetaTransaction("GasSwap", "2") {
     address public immutable WGLMR = 0x98878B06940aE243284CA214f92Bb71a2b032B8A;
 
     struct Transformation {
@@ -61,7 +62,7 @@ contract GasSwap is Ownable, EIP712MetaTransaction("GasSwap", "2") {
     }
 
     // Swaps ERC20->GLMR tokens
-    function swap(bytes calldata swapCallData) external returns (uint256) {
+    function swap(bytes calldata swapCallData) external nonReentrant returns (uint256) {
         (
             uint256 amountIn,
             uint256 amountOutMin,
