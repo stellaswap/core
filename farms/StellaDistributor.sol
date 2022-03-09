@@ -161,19 +161,19 @@ contract StellaDistributor is Ownable, ReentrancyGuard {
         ) {
 
         require(
-            0 <= _teamPercent && _teamPercent <= 1000,
+            0 <= _teamPercent && _teamPercent <= 100,
             "constructor: invalid team percent value"
         );
         require(
-            0 <= _treasuryPercent && _treasuryPercent <= 1000,
+            0 <= _treasuryPercent && _treasuryPercent <= 100,
             "constructor: invalid treasury percent value"
         );
         require(
-            0 <= _investorPercent && _investorPercent <= 1000,
+            0 <= _investorPercent && _investorPercent <= 100,
             "constructor: invalid investor percent value"
         );
         require(
-            _teamPercent + _treasuryPercent + _investorPercent <= 1000,
+            _teamPercent + _treasuryPercent + _investorPercent <= 100,
             "constructor: total percent over max"
         );
 
@@ -635,11 +635,11 @@ contract StellaDistributor is Ownable, ReentrancyGuard {
 
     function setTeamPercent(uint256 _newTeamPercent) public onlyOwner {
         require(
-            0 <= _newTeamPercent && _newTeamPercent <= 1000,
+            0 <= _newTeamPercent && _newTeamPercent <= 100,
             "set team percent: invalid percent value"
         );
         require(
-            treasuryPercent + _newTeamPercent + investorPercent <= 1000,
+            treasuryPercent + _newTeamPercent + investorPercent <= 100,
             "set team percent: total percent over max"
         );
         emit SetTeamPercent(teamPercent, _newTeamPercent);
@@ -655,11 +655,11 @@ contract StellaDistributor is Ownable, ReentrancyGuard {
 
     function setTreasuryPercent(uint256 _newTreasuryPercent) public onlyOwner {
         require(
-            0 <= _newTreasuryPercent && _newTreasuryPercent <= 1000,
+            0 <= _newTreasuryPercent && _newTreasuryPercent <= 100,
             "set treasury percent: invalid percent value"
         );
         require(
-            teamPercent + _newTreasuryPercent + investorPercent <= 1000,
+            teamPercent + _newTreasuryPercent + investorPercent <= 100,
             "set treasury percent: total percent over max"
         );
         emit SetTeamPercent(treasuryPercent, _newTreasuryPercent);
@@ -678,11 +678,11 @@ contract StellaDistributor is Ownable, ReentrancyGuard {
 
     function setInvestorPercent(uint256 _newInvestorPercent) public onlyOwner {
         require(
-            0 <= _newInvestorPercent && _newInvestorPercent <= 1000,
+            0 <= _newInvestorPercent && _newInvestorPercent <= 100,
             "set investor percent: invalid percent value"
         );
         require(
-            teamPercent + _newInvestorPercent + treasuryPercent <= 1000,
+            teamPercent + _newInvestorPercent + treasuryPercent <= 100,
             "set investor percent: total percent over max"
         );
         emit SetTeamPercent(investorPercent, _newInvestorPercent);
