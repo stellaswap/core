@@ -511,32 +511,6 @@ contract StellaVault is Ownable, ReentrancyGuard {
         emit Withdraw(_msgSender(), _pid, _amount);
     }
 
-    // Withdraw without caring about rewards. EMERGENCY ONLY.
-    function emergencyWithdraw(uint256 _pid) public nonReentrant {
-        PoolInfo storage pool = poolInfo[_pid];
-        UserInfo storage user = userInfo[_pid][_msgSender()];
-        uint256 amount = user.amount;
-
-        //Cannot withdraw more than pool's balance
-        require(
-            pool.totalLp >= amount,
-            "EmergencyWithdraw: Pool total not enough"
-        );
-
-        user.amount = 0;
-        user.rewardDebt = 0;
-        user.rewardLockedUp = 0;
-        user.nextHarvestUntil = 0;
-        pool.totalLp = pool.totalLp.sub(amount);
-
-        if (address(pool.lpToken) == address(stella)) {
-            totalStellaInPools = totalStellaInPools.sub(amount);
-        }
-        pool.lpToken.safeTransfer(_msgSender(), amount);
-
-        emit EmergencyWithdraw(_msgSender(), _pid, amount);
-    }
-
     // Pay or lockup pending Stella.
     function payOrLockupPendingStella(uint256 _pid) internal {
         PoolInfo storage pool = poolInfo[_pid];
