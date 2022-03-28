@@ -10,8 +10,8 @@ contract Stella is ERC20("StellaSwap", "STELLA"), Ownable, AccessControl {
     using SafeERC20 for IERC20;
 
     // @notice Total number of tokens
-    uint256 public maxSupply = 500_000_000e18; // 500 million STELLAR
-    uint256 private _initialSupply = 100_000e18; // 100,000 tokens is the initial supply
+    uint256 public constant maxSupply = 500_000_000e18; // 500 million STELLAR
+    uint256 private constant _initialSupply = 100_000e18; // 100,000 tokens is the initial supply
 
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     constructor(){
